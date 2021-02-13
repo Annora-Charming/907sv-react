@@ -22,30 +22,38 @@
     </style>
     <script type="text/babel">
 
+        const operations = {
+            Add: '+',
+            Substract: '-',
+            Multiply: '*',
+            Divide: '/',
+            DivideWithRemainder: '%'
+        }
+        const scales = {
+            Two: '2',
+            Eight: '8',
+            Sixteen: '16',
+            ThirtyTwo: '32'
+        }
         function Selection({ operation, onChange }) {
-            const variants = ['+','-','*','/','%'];
             return <>
                 <label>
                     <select value={operation} onChange={e => onChange(e.target.value)}>
-                        {variants.map((variant, index) =>(
-                            <option key={index} value={index}>
+                        {Object.values(operations).map((variant, index) =>(
+                            <option key={index} value={variant}>
                                 {variant}
                             </option>
                         ))}
                     </select>
                 </label>
-
             </>;
         }
-        //Selected: {variants[operation]} вытащено из под label ^
-
         function SelectScale({ scale, onChange }) {
-            const scaleVariants = ['2','8','16','32'];
             return <>
                 <label>
                     <select value={scale} onChange={e => onChange(e.target.value)}>
-                        {scaleVariants.map((scaleVariant, index) =>(
-                            <option key={index} value={index}>
+                        {Object.values(scales).map((scaleVariant, index) =>(
+                            <option key={index} value={scaleVariant}>
                                 {scaleVariant}
                             </option>
                         ))}
@@ -56,11 +64,11 @@
         }
 
         function App() {
-            const [firstValue, setFirstValue] = React.useState('0');
-            const [secondValue, setSecondValue] = React.useState('0');
+            const [firstValue, setFirstValue] = React.useState('');
+            const [secondValue, setSecondValue] = React.useState('');
             const [operation, setOperation] = React.useState('+');
-            const [originalNumber, setOriginalNumber] = React.useState('0');
-            const [scale, setScale] = React.useState('+');
+            const [originalNumber, setOriginalNumber] = React.useState('');
+            const [scale, setScale] = React.useState('2');
 
             // function addind() {
             //     setResult(Number(firstValue) + Number(secondValue));
@@ -90,21 +98,21 @@
 
             function getResult() {
                 switch (operation) {
-                    case '+': return Number(firstValue) + Number(secondValue);
-                    case '-': return firstValue - secondValue;
-                    case '*': return firstValue * secondValue;
-                    case '/': return firstValue / secondValue;
-                    case '%': return firstValue % secondValue;
+                    case operations.Add: return Number(firstValue) + Number(secondValue);
+                    case operations.Substract: return firstValue - secondValue;
+                    case operations.Multiply: return firstValue * secondValue;
+                    case operations.Divide: return firstValue / secondValue;
+                    case operations.DivideWithRemainder: return firstValue % secondValue;
                     default: return 'error (*-_-)';
                 }
             }
 
             function convertNumber() {
                 switch (scale) {
-                    case '2': return Number(originalNumber).toString(2);
-                    case '8': return Number(originalNumber).toString(8);
-                    case '16': return Number(originalNumber).toString(16);
-                    case '32': return Number(originalNumber).toString(32);
+                    case scales.Two: return Number(originalNumber).toString(2);
+                    case scales.Eight: return Number(originalNumber).toString(8);
+                    case scales.Sixteen: return Number(originalNumber).toString(16);
+                    case scales.ThirtyTwo: return Number(originalNumber).toString(32);
                     default: return 'error (*-_-)';
                 }
             }
@@ -119,7 +127,6 @@
                 /></label>
                 <br/>
 
-                <br/>
                 Операнд 2:
                 <label><input
                     type="text"
@@ -141,9 +148,10 @@
                     readOnly={true}
                 /></label>
                 <br/>
-                <br/>
+
                 <br/>
 
+                <br/>
                 Перевести
                 <label><input
                     type="text"
