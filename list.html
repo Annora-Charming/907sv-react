@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<link rel="stylesheet" type="text/css" href="list.css">
+<head>
+    <meta charset="utf-8">
+    <title>React.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="libraries/react.development.js"></script>
+    <script src="libraries/react-dom.development.js"></script>
+    <script src="libraries/babel.min.js"></script>
+    <style type="text/css">
+        #wrapper {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #root {
+            width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+    <script type="text/babel">
+
+        function App() {
+            const [Cvalue, setCValue] = React.useState('');
+            const [Fvalue, setFValue] = React.useState('');
+            function convertingToF(e) {
+                const buffC = e.target.value;
+                setCValue(buffC);
+                setFValue(buffC * 9 / 5 + 32);
+            }
+            function convertingToC(e) {
+                const buffF = e.target.value;
+                setFValue(buffF);
+                setCValue((buffF - 32) * 5 / 9);
+            }
+            return <>
+
+                Temperature in C:
+                <br/>
+                <label><input
+                    type="text"
+                    value = {Cvalue}
+                    onChange = {convertingToF}
+                /></label>
+                <br/>
+
+                <br/>
+                Temperature in F:
+                <br/>
+                <label><input
+                    type="text"
+                    value = {Fvalue}
+                    onChange = {convertingToC}
+                /></label>
+            </>;
+        }
+
+        ReactDOM.render(<App/>, document.getElementById('root'));
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="root"></div>
+</div>
+</body>
+</html>

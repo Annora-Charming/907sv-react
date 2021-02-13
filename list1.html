@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ru">
+<link rel="stylesheet" type="text/css" href="list.css">
+<head>
+    <meta charset="utf-8">
+    <title>React.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="libraries/react.development.js"></script>
+    <script src="libraries/react-dom.development.js"></script>
+    <script src="libraries/babel.min.js"></script>
+    <style type="text/css">
+        #wrapper {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #root {
+            width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+    <script type="text/babel">
+
+        function Selection({ operation, onChange }) {
+            const variants = ['+','-','*','/','%'];
+            return <>
+                <label>
+                    <select value={operation} onChange={e => onChange(e.target.value)}>
+                        {variants.map((variant, index) =>(
+                            <option key={index} value={index}>
+                                {variant}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+            </>;
+        }
+        //Selected: {variants[operation]} вытащено из под label ^
+
+        function SelectScale({ scale, onChange }) {
+            const scaleVariants = ['2','8','16','32'];
+            return <>
+                <label>
+                    <select value={scale} onChange={e => onChange(e.target.value)}>
+                        {scaleVariants.map((scaleVariant, index) =>(
+                            <option key={index} value={index}>
+                                {scaleVariant}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+            </>;
+        }
+
+        function App() {
+            const [firstValue, setFirstValue] = React.useState('0');
+            const [secondValue, setSecondValue] = React.useState('0');
+            const [operation, setOperation] = React.useState('+');
+            const [originalNumber, setOriginalNumber] = React.useState('0');
+            const [scale, setScale] = React.useState('+');
+
+            // function addind() {
+            //     setResult(Number(firstValue) + Number(secondValue));
+            // }
+            // function substraction() {
+            //     setResult(firstValue - secondValue);
+            // }
+            // function multiplication() {
+            //     setResult(firstValue * secondValue);
+            // }
+            // function division() {
+            //     setResult(firstValue / secondValue);
+            // }
+            // function divisionWithRemainder() {
+            //     setResult(firstValue % secondValue);
+            // }
+
+            //вытащено из return
+            // <br/>
+            // <button onClick={() => addind(firstValue, secondValue)}>+</button>
+            // <button onClick={() => substraction(firstValue, secondValue)}>-</button>
+            // <button onClick={() => multiplication(firstValue, secondValue)}>*</button>
+            // <button onClick={() => division(firstValue, secondValue)}>/</button>
+            // <button onClick={() => divisionWithRemainder(firstValue, secondValue)}>%</button>
+            // <br/>
+
+
+            function getResult() {
+                switch (operation) {
+                    case '+': return Number(firstValue) + Number(secondValue);
+                    case '-': return firstValue - secondValue;
+                    case '*': return firstValue * secondValue;
+                    case '/': return firstValue / secondValue;
+                    case '%': return firstValue % secondValue;
+                    default: return 'error (*-_-)';
+                }
+            }
+
+            function convertNumber() {
+                switch (scale) {
+                    case '2': return Number(originalNumber).toString(2);
+                    case '8': return Number(originalNumber).toString(8);
+                    case '16': return Number(originalNumber).toString(16);
+                    case '32': return Number(originalNumber).toString(32);
+                    default: return 'error (*-_-)';
+                }
+            }
+
+            return <>
+
+                Операнд 1:
+                <label><input
+                    type="text"
+                    value={firstValue}
+                    onChange={e => setFirstValue(e.target.value)}
+                /></label>
+                <br/>
+
+                <br/>
+                Операнд 2:
+                <label><input
+                    type="text"
+                    value={secondValue}
+                    onChange={e => setSecondValue(e.target.value)}
+                /></label>
+                <br/>
+
+                <br/>
+                Операция:
+                <Selection operation={operation} onChange={v => setOperation(v)} />
+                <br/>
+
+                <br/>
+                Результат:
+                <label><input
+                    type="text"
+                    value={getResult()}
+                    readOnly={true}
+                /></label>
+                <br/>
+                <br/>
+                <br/>
+
+                Перевести
+                <label><input
+                    type="text"
+                    value={originalNumber}
+                    onChange={e => setOriginalNumber(e.target.value)}
+                /></label>
+                из 10 системы в
+                <SelectScale scale={scale} onChange={v => setScale(v)}/>
+                <br/>
+                Результат:
+                <label><input
+                    type="text"
+                    value={convertNumber()}
+                    readOnly={true}
+                /></label>
+
+            </>;
+        }
+
+        ReactDOM.render(<App/>, document.getElementById('root'));
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="root"></div>
+</div>
+</body>
+</html>
