@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<link rel="stylesheet" type="text/css" href="list.css">
+<head>
+    <meta charset="utf-8">
+    <title>React.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="libraries/react.development.js"></script>
+    <script src="libraries/react-dom.development.js"></script>
+    <script src="libraries/babel.min.js"></script>
+    <style type="text/css">
+        #wrapper {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #root {
+            width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+    <script type="text/babel">
+
+        function App() {
+            const [value, setValue] = React.useState('');
+            const cities=['Ducbus','Wuridge','Pefta','Wruyphis','Gikstin','Jance','Zhagos','Trard','Acostead','Inasledo']
+
+            function filtrate(value){
+                let filtratedCities=[];
+                for (let i=0; i< cities.length; i++){
+                    if (cities[i].toLowerCase().indexOf(value.toLowerCase()) >= 0){
+                        filtratedCities.push(cities[i]);
+                    }
+                }
+                return filtratedCities;
+            }
+
+            return <>
+                Enter some letters to find a city
+                <br/>
+                <label><input
+                    placeholder="Enter here"
+                    type="text"
+                    value = {value}
+                    onChange = {e => setValue(e.target.value)}
+                /></label>
+                <ul>
+                    {filtrate(value).map(city => <li>{city}</li>)}
+                </ul>
+            </>;
+        }
+        ReactDOM.render(<App/>, document.getElementById('root'));
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="root"></div>
+</div>
+</body>
+</html>
