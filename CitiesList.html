@@ -24,7 +24,7 @@
 
         function App() {
             const [value, setValue] = React.useState('');
-            const cities=['Ducbus','Wuridge','Pefta','Wruyphis','Gikstin','Jance','Zhagos','Trard','Acostead','Inasledo']
+            const [cities, setCities] = React.useState([]);//['Ducbus','Wuridge','Pefta','Wruyphis','Gikstin','Jance','Zhagos','Trard','Acostead','Inasledo'];
 
             function filtrate(value){
                 let filtratedCities=[];
@@ -35,6 +35,14 @@
                 }
                 return filtratedCities;
             }
+
+            React.useEffect(async () => {
+                const response = await fetch('https://api.fungenerators.com/name/generate?category=town&limit=20');
+                const json = await response.json();
+                const testCities=json.contents.names;
+                console.log(testCities);
+                setCities(testCities);
+            }, []);
 
             return <>
                 Enter some letters to find a city
