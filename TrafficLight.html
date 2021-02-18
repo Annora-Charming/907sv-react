@@ -42,20 +42,31 @@
 
 
     <script type="text/babel">
-
         function App() {
 
-            const [isClicked1, setIsClicked1] = React.useState('false');
-            const [isClicked2, setIsClicked2] = React.useState('false');
-            const [isClicked3, setIsClicked3] = React.useState('false');
+            const[colorId, setColorId] = React.useState(0);
+            const colors = ['', 'green', 'yellow', 'red', 'yellow'];
+            function changeColorId(){
+                if (colorId === 0){
+                    setColorId(1);
+                }
+                if (colorId === 1){
+                    setColorId(2);
+                }
+                if (colorId === 2){
+                    setColorId(3);
+                }
+                if (colorId === 3){
+                    setColorId(4);
+                }
+                if (colorId === 4){
+                    setColorId(0);
+                }
+            }
 
             return <>
-                <div className={'lamp ' + (isClicked1 ? '':'green')}/>
-                <div className={'lamp ' + (isClicked2 ? '':'yellow')}/>
-                <div className={'lamp ' + (isClicked3 ? '':'red')}/>
-                <button onClick={() => setIsClicked1(!isClicked1)}>Press to change to green and back</button>
-                <button onClick={() => setIsClicked2(!isClicked2)}>Press to change to yellow and back</button>
-                <button onClick={() => setIsClicked3(!isClicked3)}>Press to change to red and back</button>
+                <div className={'lamp ' + (colors[colorId])}/>
+                <button onClick={() => changeColorId()}>Press to change color</button>
             </>;
         }
         ReactDOM.render(<App/>, document.getElementById('root'));
