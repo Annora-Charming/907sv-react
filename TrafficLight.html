@@ -45,18 +45,17 @@
 
         function App() {
 
-            const [value1, setValue1] = React.useState('lamp');
-            const [value2, setValue2] = React.useState('lamp');
-            const [value3, setValue3] = React.useState('lamp');
+            const [isClicked1, setIsClicked1] = React.useState('false');
+            const [isClicked2, setIsClicked2] = React.useState('false');
+            const [isClicked3, setIsClicked3] = React.useState('false');
 
             return <>
-                <div className={value1}/>
-                <div className={value2}/>
-                <div className={value3}/>
-                <button onClick={() => setValue1("lamp green")}>Press to change to green</button>
-                <button onClick={() => setValue2("lamp yellow")}>Press to change to yellow</button>
-                <button onClick={() => setValue3("lamp red")}>Press to change to red</button>
-
+                <div className={'lamp ' + (isClicked1 ? '':'green')}/>
+                <div className={'lamp ' + (isClicked2 ? '':'yellow')}/>
+                <div className={'lamp ' + (isClicked3 ? '':'red')}/>
+                <button onClick={() => setIsClicked1(!isClicked1)}>Press to change to green and back</button>
+                <button onClick={() => setIsClicked2(!isClicked2)}>Press to change to yellow and back</button>
+                <button onClick={() => setIsClicked3(!isClicked3)}>Press to change to red and back</button>
             </>;
         }
         ReactDOM.render(<App/>, document.getElementById('root'));
