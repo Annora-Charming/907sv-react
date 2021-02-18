@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="ru">
-<link rel="stylesheet" type="text/css" href="list.css">
 <head>
     <meta charset="utf-8">
     <title>React.js</title>
@@ -19,69 +18,45 @@
             width: 800px;
             margin: 0 auto;
         }
+        .lamp {
+            width:100px;
+            height:100px;
+            border-radius:100%;
+            background-color: black;
+            margin:10px;
+        }
+
+        .green {
+            background-color: darkgreen;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .red {
+            background-color: red;
+        }
     </style>
+
+
+
     <script type="text/babel">
 
-        function ListItem({item, index, removing, toggle}){
-            return <li>
-                <label>
-                    <input type="checkbox" onClick={() => toggle(index)} checked={item.isChecked}/>
-                    {item.title}
-                </label>
-                <button onClick={() => removing(index)}>x</button>
-            </li>
-        }
-
-        function List({list, removing, toggle}){
-            return <ul>
-                {list.map((item, index) => (
-                    <ListItem
-                        item={item}
-                        index={index}
-                        removing={removing}
-                        toggle={toggle}/>
-                ))}
-            </ul>;
-        }
-
         function App() {
-            const [value, setValue] = React.useState('');
-            const [arr, setArr] = React.useState([]);
-            function adding(){
-                setArr([
-                    ...arr,
-                    {
-                        title: value,
-                        isChecked: false
-                    }
-                ]);
-                setValue('');
-            }
 
-            function removing(index){
-                arr.splice(index, 1);
-                setArr([...arr]);
-            }
-
-            function toggle(index){
-                arr[index].isChecked = true;
-                setArr([...arr]);
-            }
+            const [value1, setValue1] = React.useState('lamp');
+            const [value2, setValue2] = React.useState('lamp');
+            const [value3, setValue3] = React.useState('lamp');
 
             return <>
-                To do:
-                <br/>
-                <label><input
-                    placeholder="Prase the cat"
-                    type="text"
-                    value = {value}
-                    onChange = {e => setValue(e.target.value)}
-                /></label>
-                <button onClick={() => adding()}>Add</button>
-                <label>
-                    <input type="checkbox"/>Already done
-                </label>
-                <List list={arr} removing={removing} toggle={toggle}/>
+                <div className={value1}/>
+                <div className={value2}/>
+                <div className={value3}/>
+                <button onClick={() => setValue1("lamp green")}>Press to change to green</button>
+                <button onClick={() => setValue2("lamp yellow")}>Press to change to yellow</button>
+                <button onClick={() => setValue3("lamp red")}>Press to change to red</button>
+
             </>;
         }
         ReactDOM.render(<App/>, document.getElementById('root'));
