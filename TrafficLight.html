@@ -48,15 +48,40 @@
             Green: 'green',
             Green_Yellow: 'green_yellow'
         };
+        const times = {
+            Wait:2000,
+            Ready:800,
+            Go:2000
+        }
         function App() {
             const [state, setState] = React.useState(states.Red);
-            setTimeout(() => changeColor(), 1000);
+
+            React.useEffect(() => {
+                setTimeout(() => changeColor(), times.Wait);
+            }, [])
 
             function changeColor(){
-                if (state === states.Red) setState(states.Red_Yellow);
-                else if (state === states.Red_Yellow) setState(states.Green);
-                else if (state === states.Green) setState(states.Green_Yellow);
-                else if (state === states.Green_Yellow) setState(states.Red);
+
+                setState(state => {
+                    console.log(state);
+                    if (state === states.Red) {
+                        setTimeout(() => changeColor(), times.Ready);
+                        return states.Red_Yellow;
+                    }
+                    else if (state === states.Red_Yellow) {
+                        setTimeout(() => changeColor(), times.Go);
+                        return states.Green;
+                    }
+                    else if (state === states.Green) {
+                        setTimeout(() => changeColor(), times.Ready);
+                        return states.Green_Yellow;
+                    }
+                    else if (state === states.Green_Yellow) {
+                        setTimeout(() => changeColor(), times.Wait);
+                        return states.Red;
+                    }
+                });
+
             }
 
             return <>
