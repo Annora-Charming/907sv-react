@@ -30,7 +30,11 @@
             background-color: darkgreen;
         }
 
-        .yellow {
+        .red_yellow {
+            background-color: yellow;
+        }
+
+        .green_yellow {
             background-color: yellow;
         }
 
@@ -42,31 +46,25 @@
 
 
     <script type="text/babel">
+        const states = {
+            Red: 'red',
+            Red_Yellow: 'red_yellow',
+            Green: 'green',
+            Green_Yellow: 'green_yellow'
+        };
         function App() {
-
-            const[colorId, setColorId] = React.useState(0);
-            const colors = ['', 'green', 'yellow', 'red', 'yellow'];
-            function changeColorId(){
-                if (colorId === 0){
-                    setColorId(1);
-                }
-                if (colorId === 1){
-                    setColorId(2);
-                }
-                if (colorId === 2){
-                    setColorId(3);
-                }
-                if (colorId === 3){
-                    setColorId(4);
-                }
-                if (colorId === 4){
-                    setColorId(0);
-                }
+            const [state, setState] = React.useState(states.Red)
+            function changeColor(){
+                if (state === states.Red) setState(states.Red_Yellow);
+                else if (state === states.Red_Yellow) setState(states.Green);
+                else if (state === states.Green) setState(states.Green_Yellow);
+                else if (state === states.Green_Yellow) setState(states.Red);
             }
 
             return <>
-                <div className={'lamp ' + (colors[colorId])}/>
-                <button onClick={() => changeColorId()}>Press to change color</button>
+                <div className={'lamp ' + (state)}/>
+                <button onClick={() => changeColor()}>Press to change color</button>
+
             </>;
         }
         ReactDOM.render(<App/>, document.getElementById('root'));
