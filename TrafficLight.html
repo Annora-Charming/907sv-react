@@ -30,11 +30,7 @@
             background-color: darkgreen;
         }
 
-        .red_yellow {
-            background-color: yellow;
-        }
-
-        .green_yellow {
+        .yellow {
             background-color: yellow;
         }
 
@@ -62,7 +58,9 @@
             }
 
             return <>
-                <div className={'lamp ' + (state)}/>
+                <div className={'lamp ' + (state === states.Red ? 'red':'')}/>
+                <div className={'lamp ' + (state === states.Red_Yellow || state === states.Green_Yellow ? 'yellow':'')}/>
+                <div className={'lamp ' + (state === states.Green ? 'green':'')}/>
                 <button onClick={() => changeColor()}>Press to change color</button>
 
             </>;
