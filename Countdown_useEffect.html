@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<link rel="stylesheet" type="text/css" href="list.css">
+<head>
+    <meta charset="utf-8">
+    <title>React.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="libraries/react.development.js"></script>
+    <script src="libraries/react-dom.development.js"></script>
+    <script src="libraries/babel.min.js"></script>
+    <style type="text/css">
+        #wrapper {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #root {
+            width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+    <script type="text/babel">
+
+        function App() {
+            const [counter, setCounter] = React.useState(10)
+            React.useEffect(() => {
+                let innerTime = counter;
+                const timerId = setInterval(() => {
+                        setCounter(() => {
+                        if (innerTime > 0) {
+                            innerTime -= 1;
+                        }
+                            return innerTime;
+                        });
+                },1000)
+                if (innerTime===0) {
+                    return () => clearInterval(timerId);
+                }
+            },[]);
+            return <>
+                Timer:
+                {counter}
+            </>;
+        }
+        ReactDOM.render(<App/>, document.getElementById('root'));
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="root"></div>
+</div>
+</body>
+</html>
