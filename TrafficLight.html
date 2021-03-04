@@ -55,7 +55,7 @@
         }
         function App() {
             const [state, setState] = React.useState(states.Red);
-
+            const [time, setTime] = React.useState(times.Wait);
             React.useEffect(() => {
                 setTimeout(() => changeColor(), times.Wait);
             }, [])
@@ -83,11 +83,19 @@
                 });
 
             }
+            function timer(){
 
+            }
             return <>
                 <div className={'lamp ' + (state === states.Red ? 'red':'')}/>
                 <div className={'lamp ' + (state === states.Red_Yellow || state === states.Green_Yellow ? 'yellow':'')}/>
                 <div className={'lamp ' + (state === states.Green ? 'green':'')}/>
+                Time left:
+                <label><input
+                    type="text"
+                    readOnly={true}
+                    value={timer()}
+                /></label>
 
             </>;
         }
